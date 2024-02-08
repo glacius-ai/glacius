@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "glacius"
+version = "0.0.3"
+description = "The Enterprise Feature Store For Machine Learning"
+authors = ["Andrew T <atreeleaf@gmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.9"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+isort = "^5.12.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+
+[tool.isort]
+profile = "black"
