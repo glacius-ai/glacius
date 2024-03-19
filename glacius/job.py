@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Any, Dict, Optional
 
+
 class Runtime(Enum):
     EMR = "EMR"
     DATABRICKS = "Databricks"
@@ -98,7 +99,6 @@ class Job:
     def inputs(self) -> Dict[str, Any]:
         return self._inputs
 
-
     @property
     def provider_region(self) -> str:
         return self._provider_region
@@ -172,7 +172,7 @@ class Job:
             "name": "TESTING",
             "namespace": self.namespace,
             "namespace_version": self.namespace_version,
-            "runtime": self.runtime.value,            
+            "runtime": self.runtime.value,
             "provider_region": self.provider_region,
             "job_status": self.job_status.value,
             "job_id": self.job_id,
@@ -196,7 +196,7 @@ class Job:
             namespace=data_dict["namespace"],
             namespace_version=data_dict["namespace_version"],
             runtime=Runtime(data_dict["runtime"]),
-            job_status=JobStatus(data_dict["job_status"]),            
+            job_status=JobStatus(data_dict["job_status"]),
             provider_region=data_dict["provider_region"],
             inputs=data_dict["inputs"],
             job_id=data_dict["job_id"] if "job_id" in data_dict else None,

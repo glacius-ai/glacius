@@ -1,6 +1,7 @@
 import re
 from typing import Any, Union
 
+
 # Base class for all expressions
 class Expr:
     def compile(self) -> str:

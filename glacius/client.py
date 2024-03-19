@@ -14,8 +14,7 @@ logger = logging.getLogger(__name__)
 API_URL = "https://app.glacius.ai"
 
 
-class Client:    
-
+class Client:
     def __init__(
         self,
         api_key: str,
@@ -24,7 +23,7 @@ class Client:
         """Generates a glacius client instance
 
         Args:
-            api_key (str): API key 
+            api_key (str): API key
             namespace (str): The namespace
         """
         self._api_key = api_key
@@ -48,28 +47,27 @@ class Client:
     def stub(self):
         return self._stub
 
-
     def _get_workspace_from_key(self, api_key: str):
         api_endpoint = f"{API_URL}/workspace/api_key/{api_key}"
         try:
-            response = requests.get(api_endpoint)            
+            response = requests.get(api_endpoint)
             if response.status_code == 200:
                 return response.json()
-            else:                
+            else:
                 logging.error(
                     f"Failed to get workspace: {response.status_code} - {response.text}"
-                )                
+                )
                 raise Exception("Unauthorized access or invalid API key")
-        except requests.RequestException as e:            
+        except requests.RequestException as e:
             logging.error(f"Error during requests call: {e}")
             raise
 
-    def get_online_features(self, feature_names: List[str], entity_ids: List[str]):        
+    def get_online_features(self, feature_names: List[str], entity_ids: List[str]):
         try:
             headers = {"X-API-Key": self.api_key}
             online_features_api = f"{API_URL}/online-store"
             payload = {
-                "namespace": self.namespace,  
+                "namespace": self.namespace,
                 "feature_names": feature_names,
                 "entity_ids": entity_ids,
             }
@@ -78,8 +76,10 @@ class Client:
             if response.status_code == 200:
                 return response.json()
             else:
-                logger.exception(f"Failed to get online features: {response.status_code}")
-            
+                logger.exception(
+                    f"Failed to get online features: {response.status_code}"
+                )
+
                 return None
         except Exception as e:
             pass
@@ -140,7 +140,7 @@ class Client:
                 }
 
             job = Job(
-                namespace=namespace,                
+                namespace=namespace,
                 provider_region="us-east-1",
                 namespace_version=namespace_version,
                 runtime=Runtime(runtime),
@@ -152,9 +152,8 @@ class Client:
                 workspace=self.workspace,
             )
 
-  
             job_data = job.to_dict()
-              
+
             api_endpoint = (
                 f"{API_URL}/jobs/{self.workspace}/{namespace}/{namespace_version}"
             )
@@ -204,7 +203,6 @@ class Client:
             if e.response is not None:
                 raise Exception(f"{e.response.json().get('detail')}")
 
-
     def materialize_features(
         self,
         feature_names: List[str],
@@ -228,7 +226,7 @@ class Client:
             ],
         }
         job = Job(
-            namespace=namespace,            
+            namespace=namespace,
             provider_region="us-east-1",
             namespace_version=namespace_version,
             runtime=Runtime(runtime),
@@ -243,7 +241,7 @@ class Client:
         job_data = job.to_dict()
 
         print(job_data)
-        
+
         api_endpoint = (
             f"{API_URL}/jobs/{self.workspace}/{namespace}/{namespace_version}"
         )
