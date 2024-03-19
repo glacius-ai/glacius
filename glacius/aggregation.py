@@ -12,6 +12,7 @@ class AggregationType(Enum):
     AVG = "AVG"
     MIN = "MIN"
     MAX = "MAX"
+    DISTINCT = "DISTINCT"
 
 
 class Aggregation:
