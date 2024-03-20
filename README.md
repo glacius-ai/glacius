@@ -1,4 +1,5 @@
-![Banner Image](https://i.ibb.co/r4M6N7c/Glacius.png)
+![PyPI Version](https://img.shields.io/pypi/v/glacius)
+![GitHub License](https://img.shields.io/github/license/glacius-ai/glacius)
 
 ## What is Glacius?
 
@@ -157,7 +158,7 @@ If you are triggering jobs via the registry, you'll need to specify which namesp
 job = client.get_offline_features(
     feature_names = [f.name for f in user_bundle.features], 
     labels_datasource=label_datasource, 
-    output_path="s3a://my-s3-bucket/offline_features_test_job", 
+    output_path="s3://my-s3-bucket/offline_features_test_job", 
     namespace_version="latest", 
 )
 ```
@@ -172,7 +173,7 @@ If you'd just like to trigger the job from the feature bundles you've just defin
 job = client.get_offline_features(
     feature_bundles=[user_bundle]
     labels_datasource=label_datasource, 
-    output_path="s3a://my-s3-bucket/offline_features_test_job", 
+    output_path="s3://my-s3-bucket/offline_features_test_job", 
 )
 ```
 
