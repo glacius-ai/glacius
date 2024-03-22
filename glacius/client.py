@@ -101,11 +101,11 @@ class Client:
 
             namespace = self.namespace
             runtime = "EMR"
+            headers = {"X-API-Key": self.api_key}
 
             if feature_names:
                 request_body = {"feature_names": feature_names}
 
-                headers = {"X-API-Key": self.api_key}
 
                 features_api_url = (
                     f"{API_URL}/namespace/{namespace}/{namespace_version}/filter-server"
