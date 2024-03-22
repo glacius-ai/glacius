@@ -4,9 +4,8 @@ from typing import List, Optional
 import requests
 from requests.exceptions import HTTPError
 
-from glacius import Feature, FeatureBundle, Job
+from glacius import FeatureBundle, Job
 from glacius.data_sources.source import DataSource
-from glacius.derived_feature import DerivedFeature
 from glacius.job import JobStatus, JobType, Runtime, ComputeTier
 
 logger = logging.getLogger(__name__)
@@ -93,12 +92,11 @@ class Client:
         num_workers: int = 8,
         feature_names: Optional[List[str]] = None,
         feature_bundles: Optional[List[FeatureBundle]] = None,
-        derived_feature: Optional[List[Feature]] = None,
     ):
         try:
             if feature_names and feature_bundles:
                 raise ValueError(
-                    "Specify feature names if you'd like to pull definitions from the registry. For ad hoc runs specify feature bundles and derived features"
+                    "Specify feature names if you'd like to pull definitions from the registry. For ad hoc runs specify feature bundles"
                 )
 
             namespace = self.namespace
@@ -125,17 +123,12 @@ class Client:
                         bundle_dict
                         for bundle_dict in response_deser.get("feature_bundles")
                     ],
-                    "derived_features": [
-                        feature_dict
-                        for feature_dict in response_deser.get("derived_features")
-                    ],
                     "output_path": output_path,
                 }
             else:
                 inputs = {
                     "labels_datasource": labels_datasource.to_dict(),
                     "feature_bundles": [fb.to_dict() for fb in feature_bundles],
-                    "derived_feature": [df.to_dict() for df in derived_feature],
                     "output_path": output_path,
                 }
 
@@ -171,7 +164,6 @@ class Client:
         self,
         feature_bundles: List[FeatureBundle],
         commit_msg: str,
-        derived_features: Optional[List[DerivedFeature]] = None,
     ):
         # The URL where your FastAPI server is running
         try:
@@ -180,13 +172,8 @@ class Client:
 
             # Convert your objects to their JSON representations
             feature_bundles_json = [fb.to_json() for fb in feature_bundles]
-            derived_features_json = (
-                [df.to_json() for df in derived_features] if derived_features else None
-            )
-
             payload = {
                 "feature_bundles": feature_bundles_json,
-                "derived_features": derived_features_json,
                 "commit_msg": commit_msg,
             }
 

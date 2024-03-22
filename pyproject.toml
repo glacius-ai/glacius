@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "glacius"
-version = "0.0.5"
+version = "0.0.6"
 description = "The Enterprise Feature Store For Machine Learning"
 authors = ["Andrew T <atreeleaf@gmail.com>"]
 readme = "README.md"
