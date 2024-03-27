@@ -8,7 +8,8 @@ class RedshiftSource(DataSource):
     table: str
     jdbc_url: str
     source_type: SourceType
-
+    query: Optional[str]
+    
     def __init__(
         self,
         *,

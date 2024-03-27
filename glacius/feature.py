@@ -21,9 +21,9 @@ class Feature:
         self,
         *,
         name: str,
-        description: str,
         expr: Expr,
         dtype: DataType,
+        description: str = "",
         agg: Aggregation = DEFAULT_AGG,
     ):
         """Initializes a Feature instance.

@@ -11,7 +11,7 @@ from glacius.job import JobStatus, JobType, Runtime, ComputeTier
 logger = logging.getLogger(__name__)
 
 API_URL = "https://app.glacius.ai"
-
+GLACIUS_ONLINE_URL = "https://online.glacius.ai"
 
 class Client:
     def __init__(
@@ -64,7 +64,7 @@ class Client:
     def get_online_features(self, feature_names: List[str], entity_ids: List[str]):
         try:
             headers = {"X-API-Key": self.api_key}
-            online_features_api = f"{API_URL}/online-store"
+            online_features_api = f"{GLACIUS_ONLINE_URL}/online-store"
             payload = {
                 "namespace": self.namespace,
                 "feature_names": feature_names,

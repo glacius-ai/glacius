@@ -1,6 +1,7 @@
 import json
 from enum import Enum
 
+from typing import Optional
 from glacius.hash_utils import md5_hash_str
 
 
@@ -22,9 +23,9 @@ class DataSource:
         self,
         *,
         name: str,
-        description: str,
         timestamp_col: str,
         source_type: SourceType,
+        description: str = "",
     ):
         self._name = name
         self._description = description
@@ -46,7 +47,7 @@ class DataSource:
     @property
     def source_type(self):
         return self._source_type
-
+    
     def __repr__(self):
         items = (f"{k} = {v}" for k, v in self.__dict__.items())
         return f"<{self.__class__.__name__}({', '.join(items)})>"

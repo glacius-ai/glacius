@@ -12,8 +12,8 @@ class FeatureBundle:
     def __init__(
         self,
         name: str,
-        description: str,
         source: DataSource,
+        description: str = "",
         features: List[Feature] = None,
         entity: Entity = None,
     ):

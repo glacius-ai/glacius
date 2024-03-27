@@ -8,7 +8,7 @@ class SnowflakeSource(DataSource):
     schema: str
     table: str
     source_type: SourceType
-    query: str
+    query: Optional[str]
 
     def __init__(
         self,
@@ -65,6 +65,7 @@ class SnowflakeSource(DataSource):
             "timestamp_col": self.timestamp_col,
             "table": self.table,
             "database": self.database,
+            "query": self.query,
             "source_type": self.source_type.value,
             "schema": self.schema,
         }
